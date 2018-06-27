@@ -15,7 +15,7 @@ def time_from_midnight(dt=None):
     return (dt - midnight).total_seconds()
 
 
-class MetricTime(object):
+class DecimalTime(object):
     @staticmethod
     def now():
         normal_seconds_from_midnight = time_from_midnight()
@@ -78,7 +78,7 @@ if __name__ == '__main__':
 
     try:
         republicanCalendar = RepublicanCalendar()
-        metricTime = MetricTime()
+        metricTime = DecimalTime()
 
         while True:
             time.sleep(0.01)
