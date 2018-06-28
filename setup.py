@@ -7,12 +7,21 @@ metric-time
 Implementation of decimal time and French Republican calendar.
 During the French Revolution, attempts were made decimalise various measuring methods including time and calendars. Two things arose from this movement: The french Republican calendar and Decimal calendar.
 
+French Republic calendar:
+The calendar consists of 12 months, each with exactly 30 days. Each week (décade) had 10 days. Years are counted in relation to the year 1792. The year usually begins on the 22nd of September. The calendar was introduced in 1793 and abolished in 1805
+
+Decimal time:
+A decimal clock consists of 10 hours, each containing 100 minutes with 100 seconds. This means that the definition of the second has to be changed to 1 decimal second = 0.864 normal seconds. It was introduced in 1794 and suspended in 1795.
+
+
 Usage:
+
 .. code-block:: bash
 
     $ metric-time
 
 Or as a Python API:
+
 .. code-block:: python
 
     >>> import metric_time
@@ -30,7 +39,7 @@ Or as a Python API:
 setuptools.setup(
     name='metric-time',
 
-    version='1.0.1',
+    version='1.0.2',
 
     description='Implementation of decimal time and French Republican calendar.',
     long_description=LONG_DESCRIPTION,
