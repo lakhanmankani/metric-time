@@ -1,7 +1,7 @@
 # metric-time
 Implementation of decimal time and French Republican calendar.
 
-During the French Revolution, attempts were made decimalise various things including time and calendars. Two things arose from this movement: The french Republican calendar and Decimal calendar.
+During the French Revolution, attempts were made decimalise various measuring methods including time and calendars. Two things arose from this movement: The french Republican calendar and Decimal calendar.
 
 ### French Republic calendar
 The calendar consists of 12 months, each with exactly 30 days. Each week (décade) had 10 days. Years are counted in relation to the year 1792. The year usually begins on the 22nd of September. The calendar was introduced in 1793 and abolished in 1805
