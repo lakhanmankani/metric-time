@@ -34,15 +34,22 @@ class DecimalTime(object):
     Get specified datetime as decimal time.
     See more: https://en.wikipedia.org/wiki/Decimal_time)
     """
-    @staticmethod
-    def decimal_time(time):
+
+    class Time:
+        def __init__(self, hours, minutes, seconds, milliseconds):
+            self.hours = hours
+            self.minutes = minutes
+            self.seconds = seconds
+            self.milliseconds = milliseconds
+
+
+    def decimal_time(self, time):
         """
         :description: Get decimal time for given `datetime`.
         :param datetime.datetime time: Datetime containing time of day.
         :return: Decimal time in the format (hours, minutes, seconds, milliseconds).
-        :rtype: tuple
+        :rtype: DecimalTime.Time
         """
-
         normal_seconds_from_midnight = time_from_midnight(time)
         metric_seconds_from_midnight = normal_seconds_from_midnight / 0.864
 
@@ -50,13 +57,14 @@ class DecimalTime(object):
         metric_minutes = (metric_seconds_from_midnight / 100) % 100
         metric_seconds = metric_seconds_from_midnight % 100
         metric_milliseconds = (metric_seconds_from_midnight - int(metric_seconds_from_midnight)) * 1000
-        return int(metric_hours), int(metric_minutes), int(metric_seconds), int(metric_milliseconds)
+        return self.Time(hours=int(metric_hours), minutes=int(metric_minutes), seconds=int(metric_seconds),
+                         milliseconds=int(metric_milliseconds))
 
     def now(self):
         """
         :description: Get decimal time for current time.
-        :return: Decimal time in the format (hours, minutes, seconds, milliseconds).
-        :rtype: tuple
+        :return: Decimal time.
+        :rtype: DecimalTime.Time
         """
         return self.decimal_time(get_local_now())
 
@@ -76,12 +84,19 @@ class RepublicanCalendar(object):
         "Messidor", "Thermidor", "Fructidor"  # Summer
     )
 
+    class Date:
+        def __init__(self, year, month, day, day_of_the_week):
+            self.year = year
+            self.month = month
+            self.day = day
+            self.day_of_the_week = day_of_the_week
+
     def republican_date(self, date):
         """
         :description: Get French Republican date for given `datetime`.
         :param datetime.datetime date: Datetime containing date.
-        :return: French Republican date in the format (year, month, day, day_of_the_week).
-        :rtype: tuple
+        :return: French Republican date.
+        :rtype: RepublicanCalendar.Date
         """
 
         time_difference = date - datetime.datetime(year=1791, month=9, day=21, tzinfo=datetime.timezone.utc)
@@ -112,13 +127,13 @@ class RepublicanCalendar(object):
         month = self.MONTHS[int(time_since_new_year.days / 30.0)]
         day = time_since_new_year.days % 30
         day_of_the_week = self.WEEK_DAYS[day % 10 - 1]
-        return year, month, day, day_of_the_week
+        return self.Date(year=year, month=month, day=day, day_of_the_week=day_of_the_week)
 
     def now(self):
         """
         :description: Get French Republican date for current date.
-        :return: French Republican date in the format (year, month, day, day_of_the_week).
-        :rtype: tuple
+        :return: French Republican date.
+        :rtype: RepublicanCalendar.Date
         """
         return self.republican_date(get_local_now())
 
@@ -134,9 +149,9 @@ def main():
             current_metric_time = metric_time.now()
 
             print("\rRepublican date: {} {} {} {};  Decimal time: {:02}:{:02}:{:02}.{:03}".format(
-                current_republican_date[3], current_republican_date[2], current_republican_date[1],
-                int(current_republican_date[0]), current_metric_time[0], current_metric_time[1], current_metric_time[2],
-                current_metric_time[3]), end='')
+                current_republican_date.day_of_the_week, current_republican_date.day, current_republican_date.month,
+                int(current_republican_date.year), current_metric_time.hours, current_metric_time.minutes,
+                current_metric_time.seconds, current_metric_time.milliseconds), end='')
     except KeyboardInterrupt:
         pass
     finally:
