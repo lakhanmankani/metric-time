@@ -84,8 +84,7 @@ class RepublicanCalendar(object):
         :rtype: tuple
         """
 
-        time_difference = datetime.datetime.now(pytz.reference.LocalTimezone()) - \
-            datetime.datetime(year=1791, month=9, day=21, tzinfo=datetime.timezone.utc)
+        time_difference = date - datetime.datetime(year=1791, month=9, day=21, tzinfo=datetime.timezone.utc)
 
         year = time_difference.days / 365
         leap_year = year % 4 == 0 and year % 100 != 0
