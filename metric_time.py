@@ -123,15 +123,15 @@ class RepublicanCalendar(object):
         return self.republican_date(get_local_now())
 
 
-if __name__ == '__main__':
+def main():
     try:
-        republicanCalendar = RepublicanCalendar()
-        metricTime = DecimalTime()
+        republican_calendar = RepublicanCalendar()
+        metric_time = DecimalTime()
 
         while True:
             time.sleep(0.01)
-            current_republican_date = republicanCalendar.now()
-            current_metric_time = metricTime.now()
+            current_republican_date = republican_calendar.now()
+            current_metric_time = metric_time.now()
 
             print("\rRepublican date: {} {} {} {};  Decimal time: {:02}:{:02}:{:02}.{:03}".format(
                 current_republican_date[3], current_republican_date[2], current_republican_date[1],
@@ -141,3 +141,7 @@ if __name__ == '__main__':
         pass
     finally:
         sys.stdout.write('\n')
+
+
+if __name__ == '__main__':
+    main()

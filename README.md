@@ -10,12 +10,21 @@ The calendar consists of 12 months, each with exactly 30 days. Each week (décad
 A decimal clock consists of 10 hours, each containing 100 minutes with 100 seconds. This means that the definition of the second has to be changed to 1 decimal second = 0.864 normal seconds. It was introduced in 1794 and suspended in 1795.
 
 ## Installation
+Pip
+```bash
+$ pip install metric-time
+```
+
 Git clone
 ```bash
 $ git clone https://github.com/lakhanmankani/metric-time.git
 ```
 
 ## Usage
+```bash
+$ metric-time
+```
+
 ```bash
 $ python3 metric_time.py
 ```
