@@ -42,7 +42,6 @@ class DecimalTime(object):
             self.seconds = seconds
             self.milliseconds = milliseconds
 
-
     def decimal_time(self, time):
         """
         :description: Get decimal time for given `datetime`.
@@ -74,6 +73,9 @@ class RepublicanCalendar(object):
     Get specified datetime as a French Republican date.
     See more: https://en.wikipedia.org/wiki/French_Republican_Calendar
     """
+    COMPLEMENTARY_DAYS = ("La Fête de la Vertu", "La Fête du Génie", "La Fête du Travail", "La Fête de l'Opinion",
+                          "La Fête des Récompenses", "La Fête de la Révolution")
+
     WEEK_DAYS = ("Primidi", "Duodi", "Tridi", "Quartidi", "Quintidi",
                  "Sextidi", "Septidi", "Octidi", "Nonidi", "Décadi")
 
@@ -98,7 +100,6 @@ class RepublicanCalendar(object):
         :return: French Republican date.
         :rtype: RepublicanCalendar.Date
         """
-
         time_difference = date - datetime.datetime(year=1791, month=9, day=21, tzinfo=datetime.timezone.utc)
 
         year = time_difference.days / 365
@@ -123,6 +124,20 @@ class RepublicanCalendar(object):
                 # New years was this Gregorian year
                 time_since_new_year = date - datetime.datetime(year=date.year, month=9, day=21,
                                                                tzinfo=pytz.reference.LocalTimezone())
+
+        # Complementary days
+        if time_since_new_year.days == 361:
+            return self.Date(year=year, month=None, day=1, day_of_the_week=self.COMPLEMENTARY_DAYS[0])
+        elif time_since_new_year.days == 362:
+            return self.Date(year=year, month=None, day=2, day_of_the_week=self.COMPLEMENTARY_DAYS[1])
+        elif time_since_new_year.days == 363:
+            return self.Date(year=year, month=None, day=3, day_of_the_week=self.COMPLEMENTARY_DAYS[2])
+        elif time_since_new_year.days == 364:
+            return self.Date(year=year, month=None, day=4, day_of_the_week=self.COMPLEMENTARY_DAYS[3])
+        elif time_since_new_year.days == 365:
+            return self.Date(year=year, month=None, day=5, day_of_the_week=self.COMPLEMENTARY_DAYS[4])
+        elif time_since_new_year.days == 366:
+            return self.Date(year=year, month=None, day=6, day_of_the_week=self.COMPLEMENTARY_DAYS[5])
 
         month = self.MONTHS[int(time_since_new_year.days / 30.0)]
         day = time_since_new_year.days % 30
