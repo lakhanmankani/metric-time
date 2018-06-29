@@ -126,18 +126,10 @@ class RepublicanCalendar(object):
                                                                tzinfo=pytz.reference.LocalTimezone())
 
         # Complementary days
-        if time_since_new_year.days == 361:
-            return self.Date(year=year, month=None, day=1, day_of_the_week=self.COMPLEMENTARY_DAYS[0])
-        elif time_since_new_year.days == 362:
-            return self.Date(year=year, month=None, day=2, day_of_the_week=self.COMPLEMENTARY_DAYS[1])
-        elif time_since_new_year.days == 363:
-            return self.Date(year=year, month=None, day=3, day_of_the_week=self.COMPLEMENTARY_DAYS[2])
-        elif time_since_new_year.days == 364:
-            return self.Date(year=year, month=None, day=4, day_of_the_week=self.COMPLEMENTARY_DAYS[3])
-        elif time_since_new_year.days == 365:
-            return self.Date(year=year, month=None, day=5, day_of_the_week=self.COMPLEMENTARY_DAYS[4])
-        elif time_since_new_year.days == 366:
-            return self.Date(year=year, month=None, day=6, day_of_the_week=self.COMPLEMENTARY_DAYS[5])
+        if 361 <= time_since_new_year.days <= 366:
+            return self.Date(year=year, month=None, day=time_since_new_year.days % 360,
+                             day_of_the_week=self.COMPLEMENTARY_DAYS[time_since_new_year.days % 361])
+
 
         month = self.MONTHS[int(time_since_new_year.days / 30.0)]
         day = time_since_new_year.days % 30

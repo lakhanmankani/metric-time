@@ -39,7 +39,7 @@ Or as a Python API:
 setuptools.setup(
     name='metric-time',
 
-    version='1.0.5',
+    version='1.0.6',
 
     description='Implementation of decimal time and French Republican calendar.',
     long_description=LONG_DESCRIPTION,
