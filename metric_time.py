@@ -41,6 +41,11 @@ class DecimalTime(object):
             self.minutes = minutes
             self.seconds = seconds
             self.milliseconds = milliseconds
+        
+        def __repr__(self):
+            return f"Decimal time: "\
+                f"{self.hours:02}:{self.minutes:02}:{self.seconds:02}."\
+                f"{self.milliseconds:03}"
 
     def decimal_time(self, time):
         """
@@ -92,6 +97,9 @@ class RepublicanCalendar(object):
             self.month = month
             self.day = day
             self.day_of_the_week = day_of_the_week
+        
+        def __repr__(self) -> str:
+            return f"Republican date: {self.day_of_the_week} {self.day} {self.month} {self.year:.0f}"
 
     def republican_date(self, date):
         """
@@ -155,10 +163,9 @@ def main():
             current_republican_date = republican_calendar.now()
             current_metric_time = metric_time.now()
 
-            print("\rRepublican date: {} {} {} {};  Decimal time: {:02}:{:02}:{:02}.{:03}".format(
-                current_republican_date.day_of_the_week, current_republican_date.day, current_republican_date.month,
-                int(current_republican_date.year), current_metric_time.hours, current_metric_time.minutes,
-                current_metric_time.seconds, current_metric_time.milliseconds), end='')
+            print(end='\r')
+            print(current_republican_date, end='; ')
+            print(current_metric_time, end='')
     except KeyboardInterrupt:
         pass
     finally:
