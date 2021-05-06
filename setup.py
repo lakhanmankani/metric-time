@@ -25,21 +25,57 @@ Or as a Python API:
 .. code-block:: python
 
     >>> import metric_time
-    >>> metric_time.DecimalTime.now()
-    (8, 2, 88, 543) # Time in format (hours, minutes, seconds, milliseconds)
-    >>> metric_time.DecimalTime.decimal_time(datetime.datetime(year=2018, month=6, day=28, hour=13, minute=50, second=30))
-    (5, 76, 73, 611) # Time in format (hours, minutes, seconds, milliseconds)
-    >>> metric_time.RepublicanCalendar().now()
-    (226.91780821917808, 'Messidor', 10, 'Décadi') # Date in format (year, month, date, day)
-    >>> metric_time.RepublicanCalendar().republican_date(datetime.datetime(year=2020, month=5, day=20, tzinfo=pytz.reference.LocalTimezone()))
-    (228.81095890410958, 'Prairial', 2, 'Duodi') # Date in format (year, month, date, day)
+    >>> import datetime
+    >>> import pytz.reference
+    >>> decimal_time = metric_time.DecimalTime()
+    >>> decimal_time.now()
+    "08:02:88.543" # Time in format hours:minutes:seconds.milliseconds
+    >>> republican_calendar = metric_time.RepublicanCalendar()
+    >>> republican_calendar.now()
+    "Décadi 10 Messidor 226" # Date in format day date month year
+
+Convert from normal date time to metric
+
+.. code-block:: python
+    >>> decimal_time.decimal_time(datetime.datetime(year=2018, month=6, day=28, hour=13, minute=50, second=30))
+    "05:76:73.611" # Time in format hours:minutes:seconds.milliseconds
+    >>> republican_calendar.republican_date(datetime.datetime(year=2020, month=5, day=20, tzinfo=pytz.reference.LocalTimezone()))
+    "Duodi 2 Prairial 228" # Date in format day date month year
+
+
+Access time components
+
+.. code-block:: python
+    >>> now_time = decimal_time.now()
+    >>> now_time.hours
+    8
+    >>> now_time.minutes
+    2
+    >>> now_time.seconds
+    88
+    >>> now_time.milliseconds
+    543
+
+
+Access date components
+
+.. code-block:: python
+    >>> now_date = republican_calendar.now()
+    >>> now_date.year
+    226.91780821917808
+    >>> now_date.month
+    "Prairial"
+    >>> now_date.day
+    10
+    >>> now_date.day_of_the_week
+    "Décadi"
 
 '''.lstrip('\n')
 
 setuptools.setup(
     name='metric-time',
 
-    version='1.0.6',
+    version='1.0.7',
 
     description='Implementation of decimal time and French Republican calendar.',
     long_description=LONG_DESCRIPTION,
@@ -64,9 +100,9 @@ setuptools.setup(
 
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9'
     ],
     keywords=['time', 'metric'],
 
